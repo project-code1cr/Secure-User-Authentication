@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - '5000:5000'
+    env_file:
+      - .env
+    restart: unless-stopped
+
+  # Optional local MongoDB service for development/testing.
+  # To use local MongoDB, set MONGODB_URI in .env to 'mongodb://mongo:27017/secure_auth_db'
+  mongo:
+    image: mongo:6
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+    driver: local
