@@ -18,7 +18,25 @@ app.use(
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: false }));
 app.use(apiLimiter);
-
+app.get('/', (_req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'Secure User Authentication System API',
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      health: 'GET /health',
+      register: 'POST /api/auth/register',
+      login: 'POST /api/auth/login',
+      refreshToken: 'POST /api/auth/refresh-token',
+      logout: 'POST /api/auth/logout',
+      profile: 'GET /api/auth/profile',
+      verifyEmail: 'GET /api/auth/verify-email/:token',
+      forgotPassword: 'POST /api/auth/forgot-password',
+      resetPassword: 'POST /api/auth/reset-password',
+    },
+  });
+});
 app.get('/health', (_req, res) => {
   res.status(200).json({
     success: true,
