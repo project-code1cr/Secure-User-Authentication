@@ -149,6 +149,20 @@ Authorization: Bearer <access_token>
 4. Add the MongoDB connection string from MongoDB Atlas.
 5. Deploy using the `npm start` command.
 
+### Deploying to Render (recommended quick path)
+
+1. Push this repository to GitHub.
+2. Create a new Web Service on Render and connect your GitHub repo (select `Node` or `Docker` depending on preference). For `Node` set:
+  - Root Directory: `.`
+  - Build Command: `npm install`
+  - Start Command: `npm start`
+3. In your Render service settings set the environment variables (required):
+  - `MONGODB_URI`, `JWT_SECRET`, `REFRESH_TOKEN_SECRET`, `NODE_ENV=production`, `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM`, etc.
+4. Optionally add a Render deploy webhook or use the provided GitHub Actions workflow to trigger deploys automatically (see `.github/workflows/ci-deploy-render.yml`).
+
+GitHub Actions notes:
+- The workflow runs tests on push to `main`. If tests pass it triggers a Render deploy using `RENDER_API_KEY` and `RENDER_SERVICE_ID` stored in GitHub secrets. Add those secrets at `Settings → Secrets → Actions`.
+
 ## Notes
 
 - Registration requires email verification before login.
